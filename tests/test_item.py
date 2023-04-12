@@ -16,4 +16,6 @@ def test_calculate_total_price(item):
 
 def test_apply_discount(item):
     """Проверка правильности установки скидки на товар"""
-    assert item.apply_discount() is None
+    Item.pay_rate = 0.5
+    item.apply_discount()
+    assert item.price == 2500
