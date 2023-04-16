@@ -30,7 +30,7 @@ class Item:
         if len(name) <= 10:
             self.__name = name
         else:
-            print('Название должно быть не более 10 символов')
+            raise Exception("Длина наименования товара превышает 10 символов")
 
     def calculate_total_price(self) -> float:
         """
@@ -52,10 +52,10 @@ class Item:
         path = '../src/items.csv'
         cls.all = []
 
-        with open(path, encoding='utf-8') as csvfile:
+        with open(path, encoding='cp1251') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                cls(row["name"], row["price"], row["quantity"])
+                cls(row['name': str], row['price': float], row['quantity': int])
 
     @staticmethod
     def string_to_number(number):
@@ -64,3 +64,8 @@ class Item:
             return int(number)
         return int(float(number))
 
+    def __str__(self):
+        return self.__name
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
