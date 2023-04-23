@@ -2,13 +2,11 @@ import csv
 
 
 class Item:
-    """
-    Класс для представления товара в магазине.
-    """
+    """Класс для представления товара в магазине"""
     pay_rate = 1.0
     all = []
 
-    def __init__(self, name: str, price: float, quantity: int) -> None:
+    def __init__(self, name, price, quantity) -> None:
         """
         Создание экземпляра класса item.
 
@@ -52,10 +50,10 @@ class Item:
         path = '../src/items.csv'
         cls.all = []
 
-        with open(path, encoding='cp1251') as csvfile:
+        with open(path, encoding='windows-1251') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                cls(row['name': str], row['price': float], row['quantity': int])
+                cls(row['name'], row['price'], row['quantity'])
 
     @staticmethod
     def string_to_number(number):
@@ -69,3 +67,6 @@ class Item:
 
     def __repr__(self):
         return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
+
+    def __add__(self, other):
+        return self.quantity + other.quantity
