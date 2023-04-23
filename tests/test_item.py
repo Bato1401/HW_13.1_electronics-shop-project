@@ -1,5 +1,7 @@
 import pytest
-from src.item import Item
+
+from item import Item
+from phone import Phone
 
 
 @pytest.fixture
@@ -7,16 +9,24 @@ def item():
     return Item("Ноутбук", 5000, 2)
 
 
-def test__repr__():
+@pytest.fixture
+def other():
+    return Phone('Телевизор', 20000, 5, 2)
+
+
+def test_add__(item, other):
+    """Тест сложения классов"""
+    assert (item.quantity + other.quantity) == 7
+
+
+def test__repr__(item):
     """Тест для метода __repr__"""
-    item1 = Item("Смартфон", 10000, 20)
-    assert repr(item1) == "Item('Смартфон', 10000, 20)"
+    assert repr(item) == 'Item("Ноутбук", 5000, 2)'
 
 
-def test__str__():
+def test__str__(other):
     """Тест метода __str__"""
-    item1 = Item("Ноутбук", 10000, 20)
-    assert str(item1) == 'Ноутбук'
+    assert str(other) == 'Телевизор'
 
 
 def test_calculate_total_price(item):
