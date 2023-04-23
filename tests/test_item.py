@@ -21,7 +21,7 @@ def test_add__(item, other):
 
 def test__repr__(item):
     """Тест для метода __repr__"""
-    assert repr(item) == 'Item("Ноутбук", 5000, 2)'
+    assert repr(item) == "Item('Ноутбук', 5000, 2)"
 
 
 def test__str__(other):
