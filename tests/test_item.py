@@ -1,7 +1,7 @@
 import pytest
 
-from item import Item
-from phone import Phone
+from src.item import Item
+from src.phone import Phone
 
 
 @pytest.fixture
