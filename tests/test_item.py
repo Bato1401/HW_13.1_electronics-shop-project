@@ -46,7 +46,7 @@ def test_instantiate_from_csv():
     Item.instantiate_from_csv('../src/items.csv')
     assert len(Item.all) == 5
     with pytest.raises(InstantiateCSVError):
-        Item.instantiate_from_csv('item_test.csv')
+        Item.instantiate_from_csv('../src/items_test.csv')
 
 def test_string_to_number():
     """Тест перевода строкового файла в int"""
