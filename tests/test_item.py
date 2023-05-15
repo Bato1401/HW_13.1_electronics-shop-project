@@ -1,6 +1,6 @@
 import pytest
 
-from src.item import Item
+from src.items import Item, InstantiateCSVError
 from src.phone import Phone
 
 
@@ -43,9 +43,10 @@ def test_apply_discount(item):
 
 def test_instantiate_from_csv():
     """Проверка выгрузки данных из файла csv с загрузкой в список"""
-    Item.instantiate_from_csv()
+    Item.instantiate_from_csv('../src/items.csv')
     assert len(Item.all) == 5
-
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv('item_test.csv')
 
 def test_string_to_number():
     """Тест перевода строкового файла в int"""
