@@ -1,6 +1,11 @@
 import csv
 
 
+class InstantiateCSVError(Exception):
+    def __str__(self):
+        print('Файл items.csv поврежден')
+
+
 class Item:
     """Класс для представления товара в магазине"""
     pay_rate = 1.0
@@ -19,6 +24,7 @@ class Item:
         self.price = price
         self.quantity = quantity
         self.all.append(self)
+        self.path = '../src/items.csv'
 
     @property
     def name(self):
@@ -46,15 +52,20 @@ class Item:
         self.price = self.price * self.pay_rate
 
     @classmethod
-    def instantiate_from_csv(cls):
+    def instantiate_from_csv(cls, path):
         """Класс-метод, инициализирующий экземпляры класса Item данными из файла src/items.csv"""
-        path = '../src/items.csv'
         cls.all = []
+        try:
+            with open(path, encoding='windows-1251') as csvfile:
+                reader = csv.DictReader(csvfile)
+                if 'name' not in reader.fieldnames or 'price' not in reader.fieldnames or 'quantity' not in reader.fieldnames:
+                    raise InstantiateCSVError
+                for row in reader:
+                    cls(row['name'], row['price'], row['quantity'])
 
-        with open(path, encoding='windows-1251') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                cls(row['name'], row['price'], row['quantity'])
+        except FileNotFoundError:
+            print('Отсутствует файл items.csv')
+
 
     @staticmethod
     def string_to_number(number):
@@ -71,3 +82,4 @@ class Item:
 
     def __add__(self, other):
         return self.quantity + other.quantity
+
